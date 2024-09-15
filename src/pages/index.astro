@@ -1,5 +1,5 @@
 ---
-
+ globalThis.counter = 1
 ---
 
 <html lang="en">
@@ -12,6 +12,10 @@
 		<title>Astro</title>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<h1>Astro</h1> 
+		<div id="counter">{globalThis.counter}</div>
+	<button hx-post="api/increment" hx-swap="innerHTML" hx-target="#counter">+</button>   
+	<button hx-post="api/decrement" hx-swap="innerHTML" hx-target="#counter">-</button> 
+
 	</body>
 </html>
