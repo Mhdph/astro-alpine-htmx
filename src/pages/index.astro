@@ -1,29 +1,38 @@
 ---
- globalThis.counter = 1
+globalThis.counter = 0;
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} /> 
-		<script src="https://unpkg.com/htmx.org@2.0.2"></script>
-		<title>Astro</title>
-	</head>
-	<body 
-	x-data="{counter: 0}" 
-	>
-		<h1>Astro</h1> 
-		<div id="counter">{globalThis.counter}</div>
-	<!-- <button hx-post="api/increment" hx-swap="innerHTML" hx-target="#counter">+</button>   
-	<button hx-post="api/decrement" hx-swap="innerHTML" hx-target="#counter">-</button>  -->
- 
-<div id="alp-counter" x-text="counter"></div>
-<div> 
-	<button x-on:click="counter -= 1">-</button> 
-	<button x-on:click="counter += 1">+</button>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <script src="https://unpkg.com/htmx.org"></script>
 
-</div>
-	</body>
+    <title>Astro</title>
+  </head>
+  <body
+    style="display: flex; flex-direction: column; align-items: stretch"
+    x-data="{ counter: 0 }"
+  >
+    <!-- ALPINEJS -->
+    <div id="alp-counter" x-text="counter"></div>
+
+    <div>
+      <button x-on:click="counter -= 1">-</button>
+      <button x-on:click="counter += 1">+</button>
+    </div>
+
+    <!-- HTMX -->
+    <div>
+      Last saved counter value:
+      <div id="lastSavedCounter"></div>
+    </div>
+
+    <form hx-post="/api/save/" hx-target="#lastSavedCounter">
+      <input type="hidden" name="counter" x-model="counter" />
+      <button type="submit">Save</button>
+    </form>
+  </body>
 </html>
